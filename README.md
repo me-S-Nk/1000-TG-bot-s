@@ -1,235 +1,115 @@
-# 🤖 Telegram-бот «1000 мелочей»
+# 🤖 1000 BOT
 
-Production-ready Telegram-бот-каталог полезных Telegram-ботов и сервисов с открытой модульной архитектурой, интуитивным интерфейсом, гибкой панелью администратора и защитой от перегрузок.
+<p align="center">
 
----
+### Telegram Catalog of Useful Bots & Services
 
-## 📋 О проекте
+**One place. Hundreds of useful Telegram services.**
 
-**«1000 мелочей»** — это бот-навигатор и каталог полезных Telegram-ботов для работы, учёбы, развлечений и повседневных задач (ИИ, VPN, загрузка медиа, обработка фото, документы, музыка, видео, поиск, инструменты).
+<br>
 
-Бот **НЕ** интегрируется напрямую со сторонними ботами, а выступает в роли удобного каталога с прямым переходом по URL (`https://t.me/<username>`), учётом статистики переходов, полнотекстовым поиском и полной динамической кастомизацией каталога администратором через Telegram интерфейс.
+[![Python](https://img.shields.io/badge/Python-3.12+-3776AB?style=for-the-badge\&logo=python\&logoColor=white)](https://www.python.org/)
+[![Aiogram](https://img.shields.io/badge/Aiogram-3.x-26A5E4?style=for-the-badge\&logo=telegram\&logoColor=white)](https://docs.aiogram.dev/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16+-336791?style=for-the-badge\&logo=postgresql\&logoColor=white)](https://www.postgresql.org/)
+[![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-2.x-D71F00?style=for-the-badge)](https://www.sqlalchemy.org/)
+[![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge\&logo=docker\&logoColor=white)](https://www.docker.com/)
+[![Railway](https://img.shields.io/badge/Railway-Deploy-000000?style=for-the-badge\&logo=railway\&logoColor=white)](https://railway.app/)
 
----
-
-## ✨ Возможности
-
-### 👤 Для пользователей:
-- **Telegram Mini App (Web App)**: Интерактивный каталог прямо внутри Telegram с плавной анимацией, живым поиском и поддержкой темы Telegram (тёмная/светлая).
-- **Динамическое главное меню**: Категории с иконками, бейджами количества ботов и описанием.
-- **Быстрый просмотр и поиск ботов**: Мгновенная фильтрация по названию, описанию и юзернейму с подсветкой совпадений.
-- **Карточка бота**: Описание, юзернейм и кнопка прямого перехода в Telegram с автоматическим учетом аналитики.
-- **Постоянная кнопка меню чата**: Каталог всегда доступен в левом нижнем углу через `MenuButtonWebApp`.
-- **Нативная навигация Telegram**: Кнопка «Назад» (`BackButton`), виброотклик (`HapticFeedback`) и адаптивный дизайн под любые экраны.
-
-### 👑 Для администратора (`/admin`):
-- **Управление категориями**:
-  - ➕ Добавление новой категории через пошаговый FSM мастер (название, emoji, описание).
-  - ✏️ Редактирование любых полей категории.
-  - 🟢 / 🔴 Включение и скрытие (Soft Delete).
-  - ⬆️ / ⬇️ Изменение порядка сортировки в пользовательском меню.
-- **Управление ботами**:
-  - ➕ Добавление нового бота с валидацией username (`@username` -> `username`) и предпросмотром перед сохранением.
-  - ✏️ Редактирование названия, юзернейма, описания, иконки, категории.
-  - 🟢 / 🔴 Включение и отключение видимости сервиса.
-  - ⬆️ / ⬇️ Сортировка ботов внутри категории.
-- **Аналитика и статистика**:
-  - 👥 Общее количество пользователей.
-  - 📁 Активные и скрытые категории.
-  - 🤖 Количество активных ботов в каталоге.
-  - 🚀 Количество переходов по сервисам.
-  - 🔥 Топ самых популярных сервисов по кликам.
-
-### 🛡 Безопасность и надёжность:
-- **Strict Admin Guard**: Ни один неавторизованный пользователь не может получить доступ к админским обработчикам или callback-запросам.
-- **Sliding Window Rate Limiter**: Защита от спама и флуда по Telegram ID (`/start`: 5/мин, поиск: 10/мин, админка: 30/мин, колбэки: 40/мин).
-- **Валидация пользовательского ввода**: Лимиты длины названий и описаний, экранирование HTML, строгая проверка форматов username.
-- **Global Error Handler**: Перехват исключений с логированием на сервере и безопасным сообщением пользователю без утечки stack trace.
-- **Idempotent Seeding**: Автоматическое создание 9 стартовых категорий при первом запуске без дублирования.
+</p>
 
 ---
 
-## 🛠 Технологический стек
+## ✦ What is 1000 Bot?
 
-- **Язык**: Python 3.12+
-- **Фреймворк бота**: [aiogram 3.x](https://docs.aiogram.dev/)
-- **ORM & База данных**: [SQLAlchemy 2.x (Asyncio)](https://docs.sqlalchemy.org/) + [asyncpg](https://github.com/MagicStack/asyncpg) + PostgreSQL
-- **Миграции**: [Alembic](https://alembic.sqlalchemy.org/)
-- **Конфигурация**: [pydantic-settings](https://docs.pydantic.dev/latest/concepts/pydantic_settings/) + [python-dotenv](https://github.com/theskumar/python-dotenv)
-- **Контейнеризация**: Docker & Railway
+**1000 Bot** is a modern Telegram catalog that helps users quickly discover useful bots and services without searching through Telegram manually.
 
----
+Instead of trying to replace other bots, the project acts as a **smart directory**:
 
-## 📁 Структура проекта
-
-```
-1000_melochey/
-├── bot.py                  # Главная точка входа: запуск, polling, lifecycle hooks
-├── config.py               # Конфигурация, чтение ENV и валидация настроек
-├── requirements.txt        # Зависимости проекта
-├── Dockerfile              # Production Docker-образ
-├── railway.toml            # Конфигурация развертывания на Railway
-├── alembic.ini             # Конфигурация Alembic
-├── .env.example            # Пример переменных окружения
-├── .gitignore              # Исключения Git
-├── .dockerignore           # Исключения Docker
-├── README.md               # Документация проекта
-│
-├── database/               # Слой базы данных
-│   ├── __init__.py
-│   ├── database.py         # AsyncEngine, async_sessionmaker, lifecycle
-│   ├── models.py           # SQLAlchemy модели (User, Category, Bot, BotClick)
-│   └── repositories.py     # Репозитории CRUD, аналитика и автосидинг
-│
-├── handlers/               # Обработчики сообщений и callback-запросов
-│   ├── __init__.py
-│   ├── start.py            # /start и возврат в главное меню
-│   ├── categories.py       # Просмотр категорий
-│   ├── bots.py             # Карточка бота, фиксация перехода, навигация
-│   ├── search.py           # Полнотекстовый поиск с FSM
-│   ├── admin.py            # Полная админ-панель: FSM CRUD категорий и ботов, аналитика
-│   └── errors.py           # Глобальный обработчик ошибок
-│
-├── keyboards/              # Клавиатуры и Inline-кнопки
-│   ├── __init__.py
-│   ├── callbacks.py        # Typed CallbackData модели (aiogram)
-│   ├── main.py             # Вспомогательные клавиатуры
-│   ├── categories.py       # Сетка категорий
-│   ├── bots.py             # Список ботов и карточка со ссылкой
-│   └── admin.py            # Меню админки, диалоги подтверждения и FSM-кнопки
-│
-├── middlewares/            # Промежуточные слои (aiogram middlewares)
-│   ├── __init__.py
-│   ├── db.py               # Внедрение сессии SQLAlchemy и репозиториев
-│   ├── admin.py            # Проверка прав администратора
-│   └── rate_limit.py       # In-memory sliding window Rate Limiter
-│
-├── states/                 # Состояния FSM (Finite State Machine)
-│   ├── __init__.py
-│   └── admin.py            # Состояния для поиска, добавления и редактирования
-│
-├── utils/                  # Утилиты и хелперы
-│   ├── __init__.py
-│   ├── validators.py       # Валидаторы username, длины строк, emoji
-│   └── helpers.py          # Экранирование HTML, форматирование карточек
-│
-└── migrations/             # Миграции базы данных Alembic
-    ├── env.py              # Асинхронный запуск миграций
-    ├── script.py.mako      # Шаблон новых ревизий
-    └── versions/
-        └── 001_initial_schema.py # Начальная схема всех таблиц и индексов
+```text
+                    ┌─────────────────────┐
+                    │      1000 BOT       │
+                    │  Telegram Service   │
+                    │      Directory      │
+                    └──────────┬──────────┘
+                               │
+          ┌────────────────────┼────────────────────┐
+          │                    │                    │
+          ▼                    ▼                    ▼
+       Discover              Search             Favorites
+          │                    │                    │
+          └────────────────────┼────────────────────┘
+                               │
+                               ▼
+                    ┌─────────────────────┐
+                    │   Telegram Service  │
+                    │     @username       │
+                    └─────────────────────┘
 ```
 
----
+The user finds a service → opens its card → follows the direct Telegram link.
 
-## 🚀 Быстрый запуск локально
+Simple for the user.
 
-### 1. Клонирование и создание виртуального окружения
-```bash
-git clone <repository_url>
-cd 1000_melochey
-
-python -m venv venv
-# Linux / macOS:
-source venv/bin/activate
-# Windows (PowerShell):
-.\venv\Scripts\Activate.ps1
-```
-
-### 2. Установка зависимостей
-```bash
-pip install --upgrade pip
-pip install -r requirements.txt
-```
-
-### 3. Настройка переменных окружения (.env)
-Скопируйте `.env.example` в `.env`:
-```bash
-cp .env.example .env
-```
-
-Заполните переменные:
-- `BOT_TOKEN` — токен вашего бота от [@BotFather](https://t.me/BotFather).
-- `ADMIN_ID` — ваш числовой Telegram ID (можно узнать через [@userinfobot](https://t.me/userinfobot)).
-- `DATABASE_URL` — строка подключения к PostgreSQL (например: `postgresql+asyncpg://postgres:password@localhost:5432/bot_catalog`).
-
-### 4. Применение миграций Alembic
-```bash
-alembic upgrade head
-```
-
-### 5. Запуск бота
-```bash
-python bot.py
-```
-
-При первом старте бот автоматически инициализирует начальные 9 категорий в БД!
+Structured and scalable underneath.
 
 ---
 
-## ☁️ Развертывание на Railway
+# ✨ Why 1000 Bot?
 
-Проект полностью оптимизирован для работы на **Railway** как фоновый worker без Webhook (Long Polling).
+Telegram has thousands of useful bots, but discovering the right one is often difficult.
 
-### Шаг 1: Создание проекта на Railway
-1. Зарегистрируйтесь на [railway.app](https://railway.app/).
-2. Нажмите **New Project** → **Deploy from GitHub repo** и выберите ваш репозиторий.
+**1000 Bot solves this problem by combining:**
 
-### Шаг 2: Добавление базы данных PostgreSQL
-1. В созданном проекте нажмите **+ New** → **Database** → **Add PostgreSQL**.
-2. Railway автоматически создаст базу данных и предоставит переменную `DATABASE_URL`.
+* 🗂 structured categories
+* 🔎 instant search
+* ⭐ personal favorites
+* 📱 Telegram Mini App
+* 📊 usage analytics
+* 👑 administrator dashboard
+* 🛡 anti-spam protection
+* 🗄 PostgreSQL persistence
+* 🚀 production-ready Docker deployment
 
-### Шаг 3: Настройка переменных окружения (Variables)
-В настройках вашего сервиса перейдите во вкладку **Variables** и добавьте:
-- `BOT_TOKEN` = `1234567890:ABCDefgh...` (Токен от BotFather)
-- `ADMIN_ID` = `123456789` (Ваш Telegram ID)
-- `DATABASE_URL` = `${{Postgres.DATABASE_URL}}` (или используйте созданную Railway переменную. Наш модуль `config.py` автоматически скорректирует `postgres://` в `postgresql+asyncpg://`).
-
-### Шаг 4: Развертывание
-- Railway автоматически соберет Dockerfile и выполнит команду из `railway.toml`:
-  `alembic upgrade head && python bot.py`
-- Бот начнет опрашивать Telegram API в режиме Long Polling.
+The result is a small **Telegram service discovery platform**, rather than just another Telegram bot.
 
 ---
 
-## 📖 Инструкция для Администратора
+# 🚀 Core Experience
 
-1. **Вход в админ-панель**:
-   - Откройте диалог с ботом и отправьте команду `/admin`.
-   - Если ваш Telegram ID совпадает с `ADMIN_ID`, откроется панель управления.
+## 📱 Telegram Mini App
 
-2. **Добавление новой категории**:
-   - В админ-панели нажмите `📁 Управление категориями` → `➕ Добавить категорию`.
-   - Шаг 1: Введите название (например: `🧠 Образование`).
-   - Шаг 2: Введите emoji (например: `🎓`).
-   - Шаг 3: Введите краткое описание или `-`, чтобы пропустить.
-   - Категория мгновенно появится в каталоге пользователей!
+The main interface is a modern Mini App running directly inside Telegram.
 
-3. **Добавление нового бота**:
-   - Нажмите `🤖 Управление ботами` → выберите категорию (например: `🤖 ИИ`).
-   - Нажмите `➕ Добавить бота`.
-   - Шаг 1: Введите название сервиса (например: `ChatGPT 4o`).
-   - Шаг 2: Введите юзернейм (например: `@chatgpt_bot` или `chatgpt_bot`).
-   - Шаг 3: Введите описание функционала сервиса.
-   - Шаг 4: Введите иконку emoji (например: `🧠`).
-   - Проверьте карточку в окне предпросмотра и нажмите `✅ Сохранить`.
+Users can browse the catalog without leaving Telegram.
 
-4. **Управление порядком и скрытием**:
-   - В карточке любой категории или бота доступны кнопки:
-     - `⬆️ Поднять` / `⬇️ Опустить` для изменения порядка в каталоге.
-     - `🟢 Включить` / `🔴 Выключить` для мгновенного скрытия/показа.
-     - `🗑 Скрыть / Удалить` (с подтверждением).
+### Main sections
 
-5. **Просмотр статистики**:
-   - В админ-панели нажмите `📊 Статистика каталога`, чтобы увидеть количество пользователей, число активных сервисов, переходы и топ ботов.
+```text
+┌─────────────────────────────────────┐
+│              1000 BOT               │
+│                                     │
+│  🔎 Search services...              │
+│                                     │
+│  ⭐ Favorites                       │
+│                                     │
+│  🔥 Popular services               │
+│                                     │
+│  ───────────────────────────────    │
+│                                     │
+│  🤖 AI                              │
+│  🔐 VPN                             │
+│  📥 Download                        │
+│  👥 People                          │
+│  🔎 Search                          │
+│  🛠 Useful Services                 │
+│  💰 Money                           │
+│  🎮 Fun                             │
+│  📱 Telegram                        │
+│                                     │
+└─────────────────────────────────────┘
+```
 
----
+The Mini App uses the Telegram WebApp API for:
 
-## 🔧 Диагностика и Troubleshooting
-
-- **Ошибки подключения к БД (`connection refused` или `driver error`)**:
-  - Убедитесь, что в `DATABASE_URL` указан драйвер `+asyncpg` (наш `config.py` нормализует URL автоматически, но локально проверьте доступность PostgreSQL).
-- **Бот не отвечает на `/admin`**:
-  - Проверьте, что в `.env` переменная `ADMIN_ID` указана как целое число без кавычек и пробелов, совпадающее с вашим Telegram ID.
-- **Превышен лимит запросов**:
-  - В бот встроен Rate Limiter для предотвращения DoS и спама. Подождите 30–60 секунд перед повторной отправкой команд.
+* native Telegram integration;
+* user ident
